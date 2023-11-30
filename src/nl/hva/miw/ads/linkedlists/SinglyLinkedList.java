@@ -52,16 +52,32 @@ public class SinglyLinkedList {
      * @param index
      * @param value
      */
-    public void add( int index, int value ) {
-        // Implement, create a new Node for this entry.
+    public void add(int index, int value) {
+        if (index < 0 || index > (size)) {
+            System.err.println("Index is outside of list range");
+            return;
+        }
 
-        Node n = new Node( value );
+        Node n = new Node(value);
+        size++;
 
-        // Implement the rest
+        if (index == 0) {
+            n.next = head;
+            head = n;
+            return;
+        }
+
+        Node current = head;
+        for (int count = 0; count < (index -1); count++) {
+            current = current.next;
+        }
+
+        n.next = current.next;
+        current.next = n;
     }
 
     /**
-     * Remove an elmeent from the list at position index, if it exists.
+     * Remove an element from the list at position index, if it exists.
      *
      * @param index
      */
