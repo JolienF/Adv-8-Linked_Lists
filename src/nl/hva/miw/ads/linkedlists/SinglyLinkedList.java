@@ -10,7 +10,7 @@ public class SinglyLinkedList {
     private class Node {
         int value;
 
-        Node next=null;      // Link to next node
+        Node next = null;      // Link to next node
 
         public Node(int value) {
             this.value = value;
@@ -34,7 +34,16 @@ public class SinglyLinkedList {
      * @return
      */
     public int get( int index ) {
-        return -1;
+        if (index < 0 || index > (size - 1)) {
+            return Integer.MIN_VALUE;
+        }
+
+        Node node1 = head;
+        for (int node = 0; node < index; node++) {
+            node1 = node1.next;
+        }
+
+        return node1.value;
     }
 
     /**
@@ -60,7 +69,6 @@ public class SinglyLinkedList {
         // Implement, remove the corresponding node from the linked list.
     }
 
-
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
@@ -76,7 +84,4 @@ public class SinglyLinkedList {
 
         return sb.toString();
     }
-
-
-
 }
