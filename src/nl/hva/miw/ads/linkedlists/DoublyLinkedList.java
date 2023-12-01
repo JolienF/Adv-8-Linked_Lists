@@ -10,8 +10,8 @@ public class DoublyLinkedList {
     private class Node {
         int value;
 
-        Node next=null;      // Link to next node
-        Node prev=null;      // Link to previous node
+        Node next = null;      // Link to next node
+        Node prev = null;      // Link to previous node
 
         public Node(int value) {
             this.value = value;
@@ -35,7 +35,16 @@ public class DoublyLinkedList {
      * @return
      */
     public int get( int index ) {
-        return -1;
+        if (index < 0 || index >= size) {
+            return Integer.MIN_VALUE;
+        }
+
+        Node current = head;
+        for (int count = 0; count <= index; count++) {
+            current = current.next;
+        }
+
+        return current.value;
     }
 
     /**
@@ -44,13 +53,36 @@ public class DoublyLinkedList {
      * @param index
      * @param value
      */
-    public void add( int index, int value ) {
-        // Implement, create a new Node for this entry.
+    public void add(int index, int value) {
+        if (index < 0 || index > (size)) {
+            System.err.println("Index is outside of list range");
+            return;
+        }
 
-        Node n = new Node( value );
+        Node n = new Node(value);
+        size++;
 
-        // Implement the rest
+        if (index == 0) {
+            if (head != null) {
+                head.prev = n;
+            }
+            n.next = head;
 
+            head = n;
+            return;
+        }
+
+        Node current = head;
+        for (int count = 0; count < index - 1; count++) {
+            current = current.next;
+        }
+
+        n.next = current.next;
+        n.prev = current;
+        current.next = n;
+        if (current.next != null) {
+            current.next.prev = n;
+        }
     }
 
     /**
@@ -58,8 +90,25 @@ public class DoublyLinkedList {
      *
      * @param index
      */
-    public void remove( int index ) {
-        // Implement, remove the corresponding node from the linked list.
+    public void remove(int index) {
+        if (index < 0 || index >= (size)) {
+            System.err.println("Index is outside of list range");
+        }
+
+        size--;
+
+        if (index == 0) {
+            head.next.prev = null;
+            head = head.next;
+        }
+
+        Node current = head;
+        for (int count = 0; count < (index -1); count++) {
+            current = current.next;
+        }
+
+        current.next = current.next.next;
+        current.next.next.prev = current;
     }
 
 
@@ -78,7 +127,4 @@ public class DoublyLinkedList {
 
         return sb.toString();
     }
-
-
-
 }
