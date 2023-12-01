@@ -81,7 +81,36 @@ public class SinglyLinkedList {
      *
      * @param index
      */
-    public void remove( int index ) {
+    public void remove(int index) {
+        if (index < 0 || index > (size - 1)) {
+            System.err.println("Index is outside of list range");
+            return;
+        }
+
+        size--;
+
+        if (index == 0) {
+            head = head.next;
+        }
+
+        Node current = head;
+        if (index == size - 1) {
+            for (int count = 0; count < index - 1; count++) {
+                current = current.next;
+            }
+
+            current.next = null;
+        }
+
+        Node next = head.next;
+        for (int count = 0; count < (index -1); count++) {
+            current = current.next;
+            next = head.next;
+        }
+
+        current.next = next.next;
+
+
         // Implement, remove the corresponding node from the linked list.
     }
 
@@ -94,7 +123,7 @@ public class SinglyLinkedList {
         Node current = this.head;
         while ( current != null ) {
             sb.append(" ");
-            sb.append( current.value );
+            sb.append(current.value);
             current = current.next;
         }
 
