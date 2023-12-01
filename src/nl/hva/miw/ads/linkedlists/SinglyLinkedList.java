@@ -92,7 +92,7 @@ public class SinglyLinkedList {
         if (index == 0) {
             head = head.next;
         }
-
+// Is deze wel echt nodig?
         Node current = head;
         if (index == size - 1) {
             for (int count = 0; count < index - 1; count++) {
@@ -102,13 +102,11 @@ public class SinglyLinkedList {
             current.next = null;
         }
 
-        Node next = head.next;
         for (int count = 0; count < (index -1); count++) {
             current = current.next;
-            next = head.next;
         }
 
-        current.next = next.next;
+        current.next = current.next.next;
 
 
         // Implement, remove the corresponding node from the linked list.
